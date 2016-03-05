@@ -63,6 +63,7 @@ def get_oldest_person_info
 
   target_person.each do |target|
     oldest_person = target.attributes['title'].value
+
   end
   
   target_date = doc.xpath("/html/body/div[3]/div[3]/div[4]/table[1]/tr[9]/td[4]/span[2]")
@@ -78,11 +79,45 @@ def find_day_of_week(birth_date)
   return week_day
 end
 
+def get_history(birth_date)
+  
+  all_history = []
+  url = "http://www.onthisday.com/events/date/#{birth_date.strftime("%Y")}/#{birth_date.strftime("%B")}/#{birth_date.strftime("%-d")}"
+  
+  doc = Nokogiri::HTML(open(url))
+  targets = doc.xpath("html/body/main/article/div[1]/ul")
+  all_history=[]
+  if targets[0].attributes['class'].value == "content__list"
+  else
+    
+    x=1
+    historical_fact = targets[0].children.children[0]
+    until historical_fact == nil
+      all_history << historical_fact.to_s
+      historical_fact = targets[0].children.children[x] 
+      x +=1
+    end
+  end
+  
+  return all_history
+ # /html/body/main/article/div[1]/ul/li
+
+end
+
 def control
   birth_date = query_user
   week_day = find_day_of_week(birth_date)
 
   puts "You were born on a #{week_day}"
+
+  all_history = get_history(birth_date)
+  if all_history[0] == nil
+    puts "Nothing of historical significance happened on day you were born."
+  else
+    all_history.each do |x|
+      puts x
+    end
+  end
 end
 
 control
