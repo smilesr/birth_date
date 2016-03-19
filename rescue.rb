@@ -104,20 +104,94 @@ def get_history(birth_date)
 
 end
 
+def get_music(birth_date)
+
+  url_stub = "#{birth_date.strftime("%Y")}"
+  url = "http://www.bobborst.com/popculture/number-one-songs-by-year/?y=#{url_stub}"
+  doc = Nokogiri::HTML(open(url)) 
+  targets = doc.xpath("/html/body/div[4]/div[4]/div[1]/div[1]/table/tbody/tr/td")
+  # targets = doc.xpath("/html/body/div[4]/div[4]/div[1]/div[1]/table/tbody/tr/td['children'][1]['attributes']['value']")
+    counter = 0
+    found_song = false
+    total = targets.length
+    song = ""
+    until counter == total-1 || found_song == true
+    # targets.each do |x|
+      x=targets[counter]
+      range_start = 0
+      range_end = 0
+      if (x.children.text =~ !(/\A\d+\z/)) == 0 || x.children.length > 1
+        range_start = Date.parse(x.children[1].attributes["datetime"].value)
+        range_end = Date.parse(x.children[3].attributes["datetime"].value)
+        if (range_start..range_end).cover?(birth_date)
+          x=targets[counter + 1]
+          song = x.children.text
+          found_song = true
+        end 
+      end
+      # dates = x.text
+      # dates.strip!
+      # dates_arr = dates.split(" \u{2013} ")
+      # binding.pry
+      # dates_arr = dates_arr.map {|y| Date.parse(y)}
+      # date_range = (dates_arr[0]-1)..(dates_arr[1]+1)
+      # covered = date_range.cover?(birth_date)
+   
+      # if covered == true
+      #   song = x.following-sibling::['children'][0].text
+      #   binding.pry
+
+      # end
+      counter +=1
+    end
+   
+
+    
+      # date_range = (Date.parse(x.children[1].attributes["datetime"].value))-1..(Date.parse(x.children[3].attributes["datetime"].value))+1
+           
+      # begin_date = x.children[1].attributes["datetime"].value
+
+
+      #   end_date = x.children[3].attributes["datetime"].value
+       
+      #   begin_date_parsed = Date.parse(begin_date)
+      #   begin_date_parsed_reduced = begin_date_parsed - 1
+      #   end_date_parsed = Date.parse(end_date)
+      #   end_date_parsed_increased = end_date_parsed + 1
+      #   date_range = begin_date_parsed_reduced..end_date_parsed_increased
+
+      #   y = date_range.cover?(birth_date)
+      
+      return song
+  
+end
+
+
+
+  # [23] pry(main)> targets[0].children[1].attributes["datetime"].value
+# => "1977-10-09"
+
+
 def control
   birth_date = query_user
   week_day = find_day_of_week(birth_date)
-
+  puts 
   puts "You were born on a #{week_day}"
+  puts
 
   all_history = get_history(birth_date)
   if all_history[0] == nil
     puts "Nothing of historical significance happened on day you were born."
   else
     all_history.each do |x|
-      puts x
+      puts "Significant historical events that happened on your birthday include: #{x}"
+      puts
     end
   end
+
+  song = get_music(birth_date)
+  puts "The number one song in the United States on your birthday was #{song}"
+
 end
 
 control
