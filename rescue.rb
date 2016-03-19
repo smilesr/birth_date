@@ -85,8 +85,10 @@ def get_history(birth_date)
   url = "http://www.onthisday.com/events/date/#{birth_date.strftime("%Y")}/#{birth_date.strftime("%B")}/#{birth_date.strftime("%-d")}"
   
   doc = Nokogiri::HTML(open(url))
-  targets = doc.xpath("html/body/main/article/div[1]/ul")
+  targets = doc.xpath("html/body/main/article/div/ul")
+  # targets = doc.xpath("html/body/main/article/div[1]/ul")
   all_history=[]
+  
   if targets[0].attributes['class'].value == "content__list"
   else
     
@@ -182,15 +184,20 @@ def control
   all_history = get_history(birth_date)
   if all_history[0] == nil
     puts "Nothing of historical significance happened on day you were born."
+    puts
   else
+    puts "Significant historical events that happened on your birthday include: "
+    puts
     all_history.each do |x|
-      puts "Significant historical events that happened on your birthday include: #{x}"
+      puts x
       puts
     end
   end
 
   song = get_music(birth_date)
-  puts "The number one song in the United States on your birthday was #{song}"
+  puts "The number one song in the United States on your birthday was:"
+  puts 
+  puts song
 
 end
 
