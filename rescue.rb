@@ -3,6 +3,8 @@ require 'nokogiri'
 require 'open-uri'
 require 'pry'
 
+class BirthdayGame
+
 def query_user
   valid_birth_date = nil
   
@@ -131,50 +133,17 @@ def get_music(birth_date)
           found_song = true
         end 
       end
-      # dates = x.text
-      # dates.strip!
-      # dates_arr = dates.split(" \u{2013} ")
-      # binding.pry
-      # dates_arr = dates_arr.map {|y| Date.parse(y)}
-      # date_range = (dates_arr[0]-1)..(dates_arr[1]+1)
-      # covered = date_range.cover?(birth_date)
-   
-      # if covered == true
-      #   song = x.following-sibling::['children'][0].text
-      #   binding.pry
 
-      # end
       counter +=1
     end
-   
 
-    
-      # date_range = (Date.parse(x.children[1].attributes["datetime"].value))-1..(Date.parse(x.children[3].attributes["datetime"].value))+1
-           
-      # begin_date = x.children[1].attributes["datetime"].value
-
-
-      #   end_date = x.children[3].attributes["datetime"].value
-       
-      #   begin_date_parsed = Date.parse(begin_date)
-      #   begin_date_parsed_reduced = begin_date_parsed - 1
-      #   end_date_parsed = Date.parse(end_date)
-      #   end_date_parsed_increased = end_date_parsed + 1
-      #   date_range = begin_date_parsed_reduced..end_date_parsed_increased
-
-      #   y = date_range.cover?(birth_date)
       
       return song
   
 end
 
 
-
-  # [23] pry(main)> targets[0].children[1].attributes["datetime"].value
-# => "1977-10-09"
-
-
-def control
+def control(birth_date)
   birth_date = query_user
   week_day = find_day_of_week(birth_date)
   puts 
@@ -200,5 +169,5 @@ def control
   puts song
 
 end
-
+end
 control
