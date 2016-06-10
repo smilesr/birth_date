@@ -1,3 +1,9 @@
-<h2> The top song on the music charts on the day you were born was </h2>
+
+<form action="/historical_events" method="post">
+  Enter you birth date:
+  <input type="text" name="birthdate" value="YYYY-MM-DD">
+  <input type="submit">
+</form>
+<h2> Some of the historical events that occurred on the day you were born were </h2>
 
 <p> <%= @all_history %> </p>

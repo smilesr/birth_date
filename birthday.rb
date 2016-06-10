@@ -51,24 +51,28 @@ post '/top_music' do
 end
 
 
-# post '/historical_events' do
-#   birth_date = Date.parse(params[:birthdate])
+post '/historical_events' do
+  birth_date = Date.parse(params[:birthdate])
 
-#   all_history = []
-#   url = "http://www.onthisday.com/events/date/#{birth_date.strftime("%Y")}/#{birth_date.strftime("%B")}/#{birth_date.strftime("%-d")}"
-#   doc = Nokogiri::HTML(open(url))
-#   targets = doc.xpath("html/body/main/article/div/ul")
-#   @all_history=[]
-#   if targets[0].attributes['class'].value == "content__list"
-#   else   
-#     x=1
-#     historical_fact = targets[0].children.children[0]
-#     until historical_fact == nil
-#       @all_history << historical_fact.to_s
-#       historical_fact = targets[0].children.children[x] 
-#       x +=1
-#     end
-#   end
-#   @all_history
-# end
+  all_history = []
+  url = "http://www.onthisday.com/events/date/#{birth_date.strftime("%Y")}/#{birth_date.strftime("%B")}/#{birth_date.strftime("%-d")}"
+  
+  doc = Nokogiri::HTML(open(url))
+  targets = doc.xpath("html/body/main/article/div/ul")
+    @all_history=[]
+    if targets[0].attributes['class'].value == "content__list"
+      send_file 'other.html'
+    else   
+      x=1
+      historical_fact = targets[0].children.children[0]
+      until historical_fact == nil
+        @all_history << historical_fact.to_s
+        historical_fact = targets[0].children.children[x] 
+        x +=1
+      end
+    
+    @all_history
+    erb :all_history
+    end
+end
 

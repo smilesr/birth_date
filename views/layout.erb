@@ -3,16 +3,49 @@
 <head>
   <meta charset="utf8">
   <title>birthday is significant></title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <link href="#" rel="stylesheet">
   <link href="#" rel="stylesheet">
+  <style>
+  .sections {
+    text-align: center;
+  }
+  .jumbotron {
+    height: 600px;
+    background: url(https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQxDn-mwwNVVD2iB172tUXEZshzQ10XTakiKnbP2QhTh6MkSCEo);
+  }
+  .transbox {
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+    opacity: 0.8;
+    /*margin-top: 20%;*/
+    
+}
+  .navbar {
+    background-color: #8229d3;
+
+  }
+
+.nv-text{
+  color: black !important;
+}
+  </style>
 </head>
 <body>
-  <header>
-    <hgroup>
-      <h1><a href="/">BIRTHDAY APP</a></h1>
-    </hgroup>
-  </header>
- 
+  <nav class="navbar navbar-fixed-top navbar-inverse">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+        <span class="glyphicon glyphicon-home"></span>
+      </a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li> <a class="nv-text" href="#day-of-week">Day of the Week</a></li>
+      <li> <a class="nv-text" href="#top-song">Top Song</a></li>
+      <li> <a class="nv-text" href="#historical-events">Historical Events</a></li>
+    </ul>
+  </nav>
+
   <div id="main">
     <%= yield %>
   </div>
