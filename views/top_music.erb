@@ -1,8 +1,10 @@
-      <form action="/top_music" method="post">
-        Enter you birth date:
-        <input type="text" name="birthdate" value="YYYY-MM-DD">
-        <input type="submit">
-      </form>
-<h2> The top song on the music charts on the day you were born was </h2>
+<h1 style="margin-top: 50px"> What was the number one song in the United States on the day you were born? </h1>
 
-<p> <%= @song %> </p>
+<form action="/top_music" method="post">
+  Enter your birth date to find out:
+  <input type="text" name="birthdate" value="YYYY-MM-DD">
+  <input type="submit">
+</form>
+<p style="margin-top: 100px"> The top song on the music charts on the day you were born was
+
+ <b> <%= @song %> </b></p>

@@ -8,12 +8,21 @@ get '/' do
   erb :index
 end
 
+get '/day_of_week' do
+  erb :day_of_week
+end
+
 post '/day_of_week' do
   days_of_week_hsh = { 1 => "Monday", 2 => "Tuesday", 3 =>"Wednesday", 4 => "Thursday", 5 => "Friday", 6 => "Saturday", 7 => "Sunday"}
+
   week_day_number = (Date.parse(params[:birthdate])).cwday
   @week_day = days_of_week_hsh[week_day_number]
 
   erb :day_of_week
+end
+
+get '/top_music' do
+  erb :top_music
 end
 
 post '/top_music' do
