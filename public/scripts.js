@@ -1,9 +1,9 @@
-    $('.search_value').keypress(function (e) {
-      if (e.which == 13)
-        {
+$( document ).ready(function() {
+    $('.results').on('click','.artist_info', function(e){
         console.log("inside");
+
         e.preventDefault();
-        var input = $(".search_value").val();
+        var input = $(".artist_info").text();
         $.ajax({
           type: "GET",
           data: input,
@@ -12,10 +12,16 @@
           async: false,
           dataType: "json",
           success: function (data, textStatus, jqXHR) {
-          console.log(data);
-          showResults(data);
+            console.log(data);
+            showResults(data);
           },
           error: function (errorMessage) {
         }
       }
-    )};
+    )});
+
+    function showResults(data){
+      $( ".results" ).append( data );
+
+    }
+  })
