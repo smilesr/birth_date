@@ -35,7 +35,7 @@ post '/top_music' do
   counter = 0
   found_song = false
   total = targets.length
-  @song = ""
+  song_info = ""
   until counter == total-1 || found_song == true
 
     x=targets[counter]
@@ -46,13 +46,17 @@ post '/top_music' do
       range_end = Date.parse(x.children[3].attributes["datetime"].value)
       if (range_start..range_end).cover?(birth_date)
         x=targets[counter + 1]
-        @song = x.children.text
+        song_info = x.children.text
         found_song = true
       end 
     end
 
     counter +=1
   end
+
+  arr = song_info.split("-")
+  @artist = arr[0]
+  @song = arr[1]
 
     
   erb :top_music
