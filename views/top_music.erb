@@ -1,23 +1,24 @@
+<div class="container">
 <h1> Enter a date to find out what was the number one song on that day: </h1>
 
-<div>
-  <form action="/top_music" method="post">
-    <input type="text" name="birthdate" value="YYYY-MM-DD">
-    <input type="submit">
-  </form>
-</div>
-<div>
-  <p class="results"> The top song on the United States music charts on _____ was
+<div class="row">
+  <div class="col-sm-6">
+    <form action="/top_music" method="post">
+      <input type="text" name="birthdate" value="YYYY-MM-DD">
+      <input type="submit">
+    </form>
+    <p class="results"> The top song on the United States music charts on _____ was
     <b> <span class="song_info"> <%= @song %> </span></b> by <b> <span class="artist_info"><%=@artist%> </span></b>
-  </p>
-</div>
-<div class="showIt"></div>
-<div>
-  <iframe id="existing-iframe-example"
+    </p>
+  </div>
+  <div class="col-sm-6 showIt">
+    <iframe id="existing-iframe-example"
         width="640" height="360"
         frameborder="0">
-  </iframe>
+    </iframe>
+  </div>
 </div>
+
 <!--src="https://www.youtube.com/embed/b07-yKnKRMQ?enablejsapi=1"-->
 <!--        style="border: solid 4px #37474F"
 -->

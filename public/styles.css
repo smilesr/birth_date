@@ -1,0 +1,20 @@
+#main {
+  margin-top: 5em;
+}
+
+.sections {
+    text-align: center;
+  }
+.jumbotron {
+    height: 600px;
+    background: url();
+  }
+
+.navbar {
+    background-color: #8AB9F1;
+
+}
+
+.nv-text{
+  color: black !important;
+}
