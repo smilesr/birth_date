@@ -57,12 +57,12 @@ post '/top_music' do
   arr = song_info.split("-")
   @artist = arr[0]
   @song = arr[1]
+  @birth_date = "#{birth_date.strftime("%B %d, %Y,")}"
 
     
   erb :top_music
   
 end
-
 
 post '/historical_events' do
   birth_date = Date.parse(params[:birthdate])
