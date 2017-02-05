@@ -64,7 +64,26 @@ $( document ).ready(function() {
   });
   $('.music_info').on('click','.artist_info', function(e){
       e.preventDefault();
-      var input = $(".artist_info").text();
+      var fullArtist = $(".artist_info").text();
+      var input = artistName(fullArtist);
+
+      function artistName(fullArtist){
+        var arr = fullArtist.split(" ");
+        var newStr = "";
+        for (var i=0; i<arr.length; i++){
+          if (i === 0){
+            newStr += (arr[i] + " ");
+console.log(newStr);
+} else if (arr[i][0] !== arr[i][0].toUpperCase()) {
+break;
+} else {
+
+              newStr += (arr[i] + " ");
+}
+
+}
+        return newStr;
+      }
       $.ajax({
         type: "GET",
         data: input,
@@ -84,7 +103,7 @@ $( document ).ready(function() {
   function findMusician(data){
     var hits = data[2];
     for (var i=0; i<hits.length; i++){
-      if (hits[i].search(/(band|singer|musician)/) != -1){
+      if (hits[i].search(/(band|singer|musician|rapper)/) != -1){
         showResults(hits[i]);
       }
     }
