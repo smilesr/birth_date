@@ -55,9 +55,12 @@ post '/top_music' do
   end
 
   arr = song_info.split("-")
+  @intro = "The top song in the United States on "
+  @colon = ": "
+  @by = " by "
   @artist = arr[0]
   @song = arr[1]
-  @birth_date = "#{birth_date.strftime("%B %d, %Y,")}"
+  @birth_date = "#{birth_date.strftime("%B %d, %Y")}"
 
     
   erb :top_music

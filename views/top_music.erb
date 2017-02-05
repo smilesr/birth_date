@@ -7,14 +7,14 @@
       <input id="input_box" type="text" name="birthdate" value="YYYY-MM-DD">
       <input type="submit">
     </form>
-    <p class="music_info"> The top song in the United States son <b><%=@birth_date%></b> was <b> <span class='song_info'> <%= @song %> </span></b> by <b> <span class='artist_info'><%=@artist%>. </span></b>
+    <p class="music_info"> <%=@intro%> <b><%=@birth_date%></b> <%=@colon%> <b> <span class='song_info'> <%= @song %> </span></b> <%=@by%> <b> <span class='artist_info'><%=@artist%>. </span></b>
     </p>
     <p class="results"></p>
   </div>
   
   <div class="col-sm-6 showIt">
     <iframe id="existing-iframe-example"
-        width="640" height="360"
+        width="560" height="315"
         frameborder="0">
     </iframe>
   </div>

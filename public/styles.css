@@ -1,6 +1,15 @@
 html, body, h1, p, ol, ul, li, a { padding: 0; border: 0; margin: 0;} 
+html {
+  font-size: 62.5%; 
+}
+h1{
+  font-family: 'Dosis', sans-serif;
+}
 #main {
-  margin-top: 5em;
+  margin-top: 8rem;
+}
+.row{
+  margin-top: 3rem;
 }
 .sections {
     text-align: center;
@@ -10,11 +19,21 @@ html, body, h1, p, ol, ul, li, a { padding: 0; border: 0; margin: 0;}
     background: url();
   }
 .music_info {
-  margin-top: 10px;
+  text-align: left;
+  margin: 1rem 0 0;
+  width: 45rem;
+  font-family: 'Dosis', sans-serif;
+  font-size: 2.2rem;
+
 }
 .results{
-  margin-top: 10px;
+  text-align: left;
+  margin: 1rem 0 0;
+  width: 45rem;
+  font-family: 'Dosis', sans-serif;
+  font-size: 2.2rem;
 }
+
 .navbar {
     background-color: #8AB9F1;
 }
