@@ -69,19 +69,28 @@ $( document ).ready(function() {
 
       function artistName(fullArtist){
         var arr = fullArtist.split(" ");
+        var reg2 = /\s|\./;
+        var i = arr.length;
+        while (i--){
+        // for (var i = 0; i<arr.length; i++){
+          if (arr[i].search(reg2) === 0 || arr[i] == false){
+            arr.splice(i,1);
+            continue;
+          }
+
+          arr;
+        }
         var newStr = "";
         for (var i=0; i<arr.length; i++){
           if (i === 0){
             newStr += (arr[i] + " ");
-console.log(newStr);
-} else if (arr[i][0] !== arr[i][0].toUpperCase()) {
-break;
-} else {
+          } else if (arr[i][0] !== arr[i][0].toUpperCase()) {
+            break;
+          } else {
+            newStr += (arr[i] + " ");
+          }
 
-              newStr += (arr[i] + " ");
-}
-
-}
+        }
         return newStr;
       }
       $.ajax({
