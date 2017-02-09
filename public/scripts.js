@@ -122,10 +122,11 @@ $( document ).ready(function() {
       for (var j=0; j<musicians.length; j++){
         var m = musicians[j].toLowerCase();
         var n = songName.toLowerCase().trim();
-        if (m.includes(n)) {
+        if (m.includes(n) || m.includes("american")) {
           likelySelection = musicians[j];
         }
       }
+      $('#well2').addClass( "well");
       showResults(likelySelection);
     }
   }

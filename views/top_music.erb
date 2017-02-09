@@ -1,25 +1,32 @@
 <div class="container">
-<h1> Enter a date to find out what was the number one song on that day: </h1>
+  <h1> Enter a date to find out what was the number one song on that day: </h1>
 
-<div class="row">
-  <div class="col-sm-6">
-    <form  id="date_submit" action="/top_music" method="post">
-      <input id="input_box" type="text" name="birthdate" value="YYYY-MM-DD">
-      <input type="submit">
-    </form>
-    <p class="music_info"> <%=@intro%> <b><%=@birth_date%></b> <%=@colon%> <b> <span class='song_info'> <%= @song %> </span></b> <%=@by%> <b> <span class='artist_info'><%=@artist%>. </span></b>
-    </p>
-    <p class="results"></p>
-  </div>
-  
-  <div class="col-sm-6 showIt embed-responsive embed-responsive-16by9">
-    <iframe class="embed-responsive-item" id="existing-iframe-example">
-    <!--     width="560" height="315"
-        frameborder="0"> -->
-    </iframe>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="well">
+        <form  id="date_submit" action="/top_music" method="post">
+          <input id="input_box" type="text" name="birthdate" value="YYYY-MM-DD">
+          <input type="submit">
+        </form>
+      </div>
+      <div id="well1" class="well">
+        <p class="music_info"> <%=@intro%> <b><%=@birth_date%></b> <%=@colon%> <b> <span class='song_info'> <%= @song %> </span></b> <%=@by%> <b> <span class='artist_info'><%=@artist%>. </span></b>
+        </p>
+      </div>
+      <div id="well2">
+        <p class="results"></p>
+      </div>
+      <div id="well3"></div>
+    </div>
+    
+    <div class="col-sm-6 showIt">
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe class="embed-responsive-item" id="existing-iframe-example">
+        </iframe>
+      </div>
+    </div>
   </div>
 </div>
-
 <!--src="https://www.youtube.com/embed/b07-yKnKRMQ?enablejsapi=1"-->
 <!--        style="border: solid 4px #37474F"
 -->
