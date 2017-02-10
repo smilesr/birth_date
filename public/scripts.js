@@ -108,29 +108,42 @@ $( document ).ready(function() {
   });
   function findMusician(data){
     var hits = data[2];
+    var wikiUrl = data[3];
     var musicians = [];
+    var urlOrder = [];
+  
+    var likelySelection = {};
     for (var i=0; i<hits.length; i++){
       if (hits[i].search(/(band|singer|musician|rapper|album|group)/) != -1){
         musicians.push(hits[i]);
+        urlOrder.push(i);
       }
     }
     if (musicians.length === 1){
       showResults(musicians[0]);
     } else {
       var songName = $('.song_info').text();
-      var likelySelection = musicians[0];
+      likelySelection[0] = musicians[0];
       for (var j=0; j<musicians.length; j++){
         var m = musicians[j].toLowerCase();
         var n = songName.toLowerCase().trim();
         if (m.includes(n) || m.includes("american")) {
-          likelySelection = musicians[j];
+          likelySelection = {};
+          likelySelection[j] = musicians[j];
         }
       }
-      $('#well2').addClass( "well");
-      showResults(likelySelection);
+      $('#well2').addClass("well");
+      var x = likelySelection;
+      var k = parseInt(Object.keys(likelySelection));
+      var v = Object.values(likelySelection);
+      showResults(v,k);
+      $('#well2').append(`<button id="go_to_wiki_page"><a href="${wikiUrl[k]}" target="_blank">Learn More</a></button>`);
+      // $('#go_to_wiki_page').attr('href', wiki_page);target="_blank"
     }
   }
-  function showResults(data){
+  function showResults(data,k){
     $( ".results" ).append( data );
+    var artistName = $(".artist_info").text();
+    // $('.results').append(`<button id="go_to_wiki_page"><a href="${wikiUrl[k]}" target="_blank">Learn more about ${artistName}</a></button>`);
   }
 })
