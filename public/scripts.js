@@ -95,7 +95,7 @@ $( document ).ready(function() {
         data: input,
         url: "http://en.wikipedia.org/w/api.php?action=opensearch&search=" + input + "&callback=?",
         contentType: "application/json; charset=utf-8",
-        async: false,
+        // async: false,
         dataType: "json",
         success: function (data, textStatus, jqXHR) {
           console.log(data);
@@ -107,6 +107,7 @@ $( document ).ready(function() {
   )
   });
   function findMusician(data){
+    var titles = data[1];
     var hits = data[2];
     var wikiUrl = data[3];
     var musicians = [];
@@ -114,36 +115,56 @@ $( document ).ready(function() {
   
     var likelySelection = {};
     for (var i=0; i<hits.length; i++){
+      if (titles[i].includes("discography")){
+          likelySelection = {};
+          likelySelection[0] = hits[0];
+          break;
+      }
       if (hits[i].search(/(band|singer|musician|rapper|album|group)/) != -1){
         musicians.push(hits[i]);
         urlOrder.push(i);
       }
     }
-    if (musicians.length === 1){
-      showResults(musicians[0]);
-    } else {
-      var songName = $('.song_info').text();
-      likelySelection[0] = musicians[0];
-      for (var j=0; j<musicians.length; j++){
-        var m = musicians[j].toLowerCase();
-        var n = songName.toLowerCase().trim();
-        if (m.includes(n) || m.includes("american")) {
-          likelySelection = {};
-          likelySelection[j] = musicians[j];
+    if (Object.keys(likelySelection).length === 0 && likelySelection.constructor === Object){
+      if (musicians.length === 1){
+        showResults(musicians[0],0,wikiUrl);
+        return;
+      } else {
+        var songName = $('.song_info').text();
+        likelySelection[0] = musicians[0];
+        for (var j=0; j<musicians.length; j++){
+          var m = musicians[j].toLowerCase();
+          var n = songName.toLowerCase().trim();
+          // var o = "discography";
+          // if (titles[j].includes(o)){
+          //   likelySelection = {};
+          //   likelySelection[0] = musicians[0];
+          //   break;
+          // }
+          if (m.includes(n) || m.includes("american")) {
+            likelySelection = {};
+            likelySelection[j] = musicians[j];
+          }
         }
       }
-      $('#well2').addClass("well");
-      var x = likelySelection;
-      var k = parseInt(Object.keys(likelySelection));
-      var v = Object.values(likelySelection);
-      showResults(v,k);
-      $('#well2').append(`<button id="go_to_wiki_page"><a href="${wikiUrl[k]}" target="_blank">Learn More</a></button>`);
-      // $('#go_to_wiki_page').attr('href', wiki_page);target="_blank"
     }
+
+    var x = likelySelection;
+    var k = parseInt(Object.keys(likelySelection));
+    var v = Object.values(likelySelection);
+    showResults(v,k,wikiUrl);
+      // $('#well2').append(`<button id="go_to_wiki_page"><a href="${wikiUrl[k]}" target="_blank">Learn More</a></button>`);
+      // $('#go_to_wiki_page').attr('href', wiki_page);target="_blank"
+      
+    
   }
-  function showResults(data,k){
-    $( ".results" ).append( data );
+  function showResults(data,k,wikiUrl){
+    $('#well2').addClass("well");
+    // $( ".results" ).append( data );
     var artistName = $(".artist_info").text();
+    $('#well2').append(`<button id="go_to_wiki_page"><a href="${wikiUrl[k]}" target="_blank">Learn About ${artistName} </a></button>`);
+
     // $('.results').append(`<button id="go_to_wiki_page"><a href="${wikiUrl[k]}" target="_blank">Learn more about ${artistName}</a></button>`);
+        $( ".results" ).append( data );
   }
 })
