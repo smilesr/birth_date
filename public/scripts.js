@@ -61,6 +61,8 @@ function stopVideo() {
 
 $( document ).ready(function() {
   $('form#date_submit').on('submit', function(e){
+    $( "div#well1" ).addClass( "weller" );
+    // e.stopPropagation()
   });
   $('.music_info').on('click','.artist_info', function(e){
       e.preventDefault();
@@ -95,7 +97,6 @@ $( document ).ready(function() {
         data: input,
         url: "http://en.wikipedia.org/w/api.php?action=opensearch&search=" + input + "&callback=?",
         contentType: "application/json; charset=utf-8",
-        // async: false,
         dataType: "json",
         success: function (data, textStatus, jqXHR) {
           console.log(data);
@@ -135,12 +136,7 @@ $( document ).ready(function() {
         for (var j=0; j<musicians.length; j++){
           var m = musicians[j].toLowerCase();
           var n = songName.toLowerCase().trim();
-          // var o = "discography";
-          // if (titles[j].includes(o)){
-          //   likelySelection = {};
-          //   likelySelection[0] = musicians[0];
-          //   break;
-          // }
+
           if (m.includes(n) || m.includes("american")) {
             likelySelection = {};
             likelySelection[j] = musicians[j];
@@ -153,18 +149,13 @@ $( document ).ready(function() {
     var k = parseInt(Object.keys(likelySelection));
     var v = Object.values(likelySelection);
     showResults(v,k,wikiUrl);
-      // $('#well2').append(`<button id="go_to_wiki_page"><a href="${wikiUrl[k]}" target="_blank">Learn More</a></button>`);
-      // $('#go_to_wiki_page').attr('href', wiki_page);target="_blank"
-      
-    
   }
   function showResults(data,k,wikiUrl){
     $('#well2').addClass("well");
-    // $( ".results" ).append( data );
+   
     var artistName = $(".artist_info").text();
     $('#well2').append(`<button id="go_to_wiki_page"><a href="${wikiUrl[k]}" target="_blank">Learn About ${artistName} </a></button>`);
 
-    // $('.results').append(`<button id="go_to_wiki_page"><a href="${wikiUrl[k]}" target="_blank">Learn more about ${artistName}</a></button>`);
         $( ".results" ).append( data );
   }
 })
