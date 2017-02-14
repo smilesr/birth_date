@@ -24,7 +24,14 @@ h1{
   width: 48rem;*/
   font-family: 'Dosis', sans-serif;
   font-size: 2.2rem;
-
+}
+.song_info {
+  text-decoration: underline;
+  color: red;
+}
+.artist_info {
+    text-decoration: underline;
+  color: red;
 }
 .results{
   text-align: left;

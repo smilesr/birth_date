@@ -56,7 +56,7 @@ post '/top_music' do
 
   arr = song_info.split("-")
   @intro = "<p class='music_info weller'> The top song in the United States on "
-  @colon = ": "
+  @colon = ":   "
   @by = " by "
   @artist = arr[0]
   @song = arr[1]

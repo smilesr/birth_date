@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-    $('.music_info').on('click','.artist_info', function(e){
+    $('.music_info').on('click','.song_info', function(e){
         e.preventDefault();
         var artistInfo = $(".artist_info").text();
         var songInfo = $(".song_info").text();
@@ -62,7 +62,6 @@ function stopVideo() {
 $( document ).ready(function() {
   $('form#date_submit').on('submit', function(e){
     $( "div#well1" ).addClass( "weller" );
-    // e.stopPropagation()
   });
   $('.music_info').on('click','.artist_info', function(e){
       e.preventDefault();
@@ -113,12 +112,16 @@ $( document ).ready(function() {
     var wikiUrl = data[3];
     var musicians = [];
     var urlOrder = [];
+    var urlOrderChoice;
   
     var likelySelection = {};
     for (var i=0; i<hits.length; i++){
       if (titles[i].includes("discography")){
           likelySelection = {};
-          likelySelection[0] = hits[0];
+          likelySelection[0] = hits[i];
+          // likelySelection[0] = hits[0];
+          likelySelection[0] = musicians[0];
+          urlOrderChoice = urlOrder[0];
           break;
       }
       if (hits[i].search(/(band|singer|musician|rapper|album|group)/) != -1){
@@ -128,7 +131,7 @@ $( document ).ready(function() {
     }
     if (Object.keys(likelySelection).length === 0 && likelySelection.constructor === Object){
       if (musicians.length === 1){
-        showResults(musicians[0],0,wikiUrl);
+        showResults(musicians[0],urlOrderChoice,wikiUrl);
         return;
       } else {
         var songName = $('.song_info').text();
@@ -140,21 +143,23 @@ $( document ).ready(function() {
           if (m.includes(n) || m.includes("american")) {
             likelySelection = {};
             likelySelection[j] = musicians[j];
+            urlOrderChoice = urlOrder[j];
           }
         }
       }
     }
 
-    var x = likelySelection;
-    var k = parseInt(Object.keys(likelySelection));
+    // var x = likelySelection;
+    // var k = parseInt(Object.keys(likelySelection));
     var v = Object.values(likelySelection);
-    showResults(v,k,wikiUrl);
+    showResults(v,urlOrderChoice,wikiUrl);
   }
   function showResults(data,k,wikiUrl){
     $('#well2').addClass("well");
    
-    var artistName = $(".artist_info").text();
-    $('#well2').append(`<button id="go_to_wiki_page"><a href="${wikiUrl[k]}" target="_blank">Learn About ${artistName} </a></button>`);
+    // var artistName = $(".artist_info").text();
+    // ${artistName}
+    $('#well2').append(`<a id="go_to_wiki_page" href="${wikiUrl[k]}" target="_blank">Learn More >> </a>`);
 
         $( ".results" ).append( data );
   }
