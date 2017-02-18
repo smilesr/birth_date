@@ -164,3 +164,15 @@ $( document ).ready(function() {
         $( ".results" ).append( data );
   }
 })
+
+function validateForm() {
+    var x = document.forms["myForm"]["birthdate"].value;
+   
+    var regForm = /\d\d\d\d-\d\d-\d\d/;
+    if (x.search(regForm) == -1) {
+      var errorMsg = document.getElementById("error_message");
+      errorMsg.className = "alert alert-warning alert-dismissable";
+      errorMsg.innerHTML = "<a href='#'' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong> Wrong date format.  Enter date in this format yyyy-mm-dd.  For example, September 10, 2015, would be 2015-09-10.</strong>";
+      return false;
+    }
+}

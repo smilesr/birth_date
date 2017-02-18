@@ -26,7 +26,16 @@ get '/top_music' do
 end
 
 post '/top_music' do
-  birth_date = Date.parse(params[:birthdate])
+  begin
+  birth_date = Date.parse(params[:birthdate]) 
+  rescue => e
+
+# rescue nil
+  binding.pry
+end
+  if birth_date == nil
+    erb "bad date"
+  else
   url_stub = "#{birth_date.strftime("%Y")}"
   url = "http://www.bobborst.com/popculture/number-one-songs-by-year/?y=#{url_stub}"
   doc = Nokogiri::HTML(open(url)) 
@@ -52,8 +61,8 @@ post '/top_music' do
     end
 
     counter +=1
+    end
   end
-
   arr = song_info.split("-")
   @intro = "<p class='music_info weller'> The top song in the United States on "
   @colon = ":   "
