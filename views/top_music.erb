@@ -3,9 +3,8 @@
 
   <div class="row">
     <div class="col-sm-6">
-              <div id="error_message"></div>
+      <div id="error_message"></div>
       <div class="well">
-
         <form name="myForm" id="date_submit" action="/top_music" method="post" onsubmit="return validateForm()">
           <input id="input_box" type="text" name="birthdate" value="YYYY-MM-DD">
           <input type="submit">
@@ -13,13 +12,13 @@
       </div>
       <div id="well1">
         <p class="music_info"> <%=@intro%> <b><%=@birth_date%></b> <%=@colon%> <b> <span class='song_info'> <%= @song %> </span></b> <%=@by%> <b> <span class='artist_info'><%=@artist%> </span></b></span><%=@closer%>
-        
+        </p>
       </div>
       <div id="well2">
         <p class="results"></p>
       </div>
     </div>
-    <div class="col-sm-6 showIt">
+    <div class="col-sm-6 showIt" id="well3" >
       <div class="embed-responsive embed-responsive-16by9">
         <iframe class="embed-responsive-item" id="existing-iframe-example">
         </iframe>

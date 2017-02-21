@@ -1,6 +1,7 @@
 $( document ).ready(function() {
     $('.music_info').on('click','.song_info', function(e){
         e.preventDefault();
+        $( "div#well3" ).addClass( "weller" );
         var artistInfo = $(".artist_info").text();
         var songInfo = $(".song_info").text();
         var input = artistInfo.concat(songInfo);

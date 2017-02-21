@@ -34,9 +34,9 @@ h1{
   color: red;
 }
 .results{
-  text-align: left;
+/*  text-align: left;
   margin: 1rem 0 0;
-  width: 48rem;
+  width: 48rem;*/
   font-family: 'Dosis', sans-serif;
   font-size: 2.2rem;
 }
@@ -58,5 +58,8 @@ h1{
     box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
 }
 #go_to_wiki_page a{
+  color: black;
+}
+.icon-bar{
   color: black;
 }
