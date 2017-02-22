@@ -95,7 +95,7 @@ $( document ).ready(function() {
       $.ajax({
         type: "GET",
         data: input,
-        url: "http://en.wikipedia.org/w/api.php?action=opensearch&search=" + input + "&callback=?",
+        url: "http://en.wikipedia.org/w/api.php?action=opensearch&limit=20&search=" + input + "&callback=?",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data, textStatus, jqXHR) {
@@ -111,28 +111,50 @@ $( document ).ready(function() {
     var titles = data[1];
     var hits = data[2];
     var wikiUrl = data[3];
+    var beatlesBlurb = "The Beatles were an English rock band, formed in Liverpool in 1960. With members John Lennon, Paul McCartney, George Harrison and Ringo Starr, they became widely regarded as the foremost and most influential act of the rock era";
+    if (titles[0] == "Beatles"){
+      showResults(beatlesBlurb,0,wikiUrl);
+      return
+    }
+    if (titles.length === 1){
+      showResults(hits[0],0,wikiUrl);
+      return;
+    }
+    var candidates = [];
+    var candidatesUrlOrder =[];
     var musicians = [];
+    var musiciansUrlOrder = [];
     var urlOrder = [];
     var urlOrderChoice;
   
     var likelySelection = {};
     for (var i=0; i<hits.length; i++){
-      if (titles[i].includes("discography")){
+      if (titles[i].includes("discography")) {
           likelySelection = {};
-          likelySelection[0] = hits[i];
-          // likelySelection[0] = hits[0];
-          likelySelection[0] = musicians[0];
-          urlOrderChoice = urlOrder[0];
+          if (hits[0].search(/(band|singer|musician|music|rapper|album|group)/) != -1 && titles[0] != '') {
+          likelySelection[0] = hits[0];
+          urlOrderChoice = 0;
+          } else {
+            likelySelection[0] = hits[1];
+            urlOrderChoice = 1;
+          }
           break;
+      }
+      if (titles[i].includes("singer") || titles[i].includes("band")){
+        candidates.push(hits[i]);
+        candidatesUrlOrder.push(i);
       }
       if (hits[i].search(/(band|singer|musician|rapper|album|group)/) != -1){
         musicians.push(hits[i]);
-        urlOrder.push(i);
+        musiciansUrlOrder.push(i);
       }
     }
     if (Object.keys(likelySelection).length === 0 && likelySelection.constructor === Object){
-      if (musicians.length === 1){
-        showResults(musicians[0],urlOrderChoice,wikiUrl);
+      if (candidates.length === 1){
+        showResults(candidates[0],candidatesUrlOrder[0], wikiUrl);
+        return;
+      } else if (musicians.length === 1) {
+        showResults(musicians[0],musiciansUrlOrder[0], wikiUrl);
         return;
       } else {
         var songName = $('.song_info').text();
@@ -150,19 +172,14 @@ $( document ).ready(function() {
       }
     }
 
-    // var x = likelySelection;
-    // var k = parseInt(Object.keys(likelySelection));
     var v = Object.values(likelySelection);
+    // if (v === "")
     showResults(v,urlOrderChoice,wikiUrl);
   }
-  function showResults(data,k,wikiUrl){
+  function showResults(profile,k,wikiUrl){
     $('#well2').addClass("well");
-   
-    // var artistName = $(".artist_info").text();
-    // ${artistName}
     $('#well2').append(`<a id="go_to_wiki_page" href="${wikiUrl[k]}" target="_blank">Learn More >> </a>`);
-
-        $( ".results" ).append( data );
+    $( ".results" ).append( profile );
   }
 })
 
