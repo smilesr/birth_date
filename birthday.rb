@@ -25,14 +25,23 @@ get '/top_music' do
   erb :top_music
 end
 
+post '/new_profile' do
+ 
+  url = params[:correctedUrl]
+
+  doc = Nokogiri::HTML(open(url))
+  # target = doc.xpath("/html/body/table[0]/p[0]")
+  # blurb = target.text
+  target = doc.css("#mw-content-text>p").text
+  blurb = (target.match(/^(.*?)[.]\s/))[0]
+  
+  return blurb
+end
 post '/top_music' do
   begin
-  birth_date = Date.parse(params[:birthdate]) 
+    birth_date = Date.parse(params[:birthdate]) 
   rescue => e
-
-# rescue nil
-  binding.pry
-end
+  end
   if birth_date == nil
     erb "bad date"
   else

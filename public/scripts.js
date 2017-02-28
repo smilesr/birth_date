@@ -113,11 +113,11 @@ $( document ).ready(function() {
     var wikiUrl = data[3];
     var beatlesBlurb = "The Beatles were an English rock band, formed in Liverpool in 1960. With members John Lennon, Paul McCartney, George Harrison and Ringo Starr, they became widely regarded as the foremost and most influential act of the rock era";
     if (titles[0] == "Beatles"){
-      showResults(beatlesBlurb,0,wikiUrl);
+      reDoProfile(beatlesBlurb,0,wikiUrl);
       return
     }
     if (titles.length === 1){
-      showResults(hits[0],0,wikiUrl);
+      reDoProfile(hits[0],0,wikiUrl);
       return;
     }
     var candidates = [];
@@ -151,10 +151,10 @@ $( document ).ready(function() {
     }
     if (Object.keys(likelySelection).length === 0 && likelySelection.constructor === Object){
       if (candidates.length === 1){
-        showResults(candidates[0],candidatesUrlOrder[0], wikiUrl);
+        reDoProfile(candidates[0],candidatesUrlOrder[0], wikiUrl);
         return;
       } else if (musicians.length === 1) {
-        showResults(musicians[0],musiciansUrlOrder[0], wikiUrl);
+        reDoProfile(musicians[0],musiciansUrlOrder[0], wikiUrl);
         return;
       } else {
         var songName = $('.song_info').text();
@@ -174,18 +174,55 @@ $( document ).ready(function() {
 
     var v = Object.values(likelySelection);
     // if (v === "")
-    showResults(v,urlOrderChoice,wikiUrl);
+    reDoProfile(v,urlOrderChoice,wikiUrl);
+  }
+
+  function reDoProfile(profile,k,wikiUrl){
+    if (profile === ''){
+      console.log("go to profile function")
+      newProfile(wikiUrl[k]);
+    } else {
+      showResults(profile,k,wikiUrl);
+    }
   }
   function showResults(profile,k,wikiUrl){
-    $('#well2').addClass("well");
-    $('#well2').append(`<a id="go_to_wiki_page" href="${wikiUrl[k]}" target="_blank">Learn More >> </a>`);
+    $( "#well2" ).empty();
+    $( "#well2" ).addClass("weller");
+    $( "#well2" ).append("<p></p>").addClass("results");
     $( ".results" ).append( profile );
+    if (k === null){
+      var moreInfoUrl = wikiUrl;
+    } else {
+      var moreInfoUrl = wikiUrl[k];
+    }
+    $( "#well2" ).append(`<a id="go_to_wiki_page" href="${moreInfoUrl}" target="_blank">Learn More >> </a>`);
+
+
   }
+  function newProfile(wikiUrl){
+    console.log("new profile");
+    $.ajax({
+      type: "POST",
+      data: {correctedUrl : wikiUrl},
+      url: "/new_profile",
+      // contentType: "application/json; charset=utf-8",
+      // dataType: "json",
+      success: function (data, textStatus, jqXHR) {
+        console.log('return');
+         console.log(data);
+         showResults(data,k=null,wikiUrl);
+        },
+      error: function (errorMessage) {
+        }
+    })
+  }
+
+
+
 })
 
 function validateForm() {
     var x = document.forms["myForm"]["birthdate"].value;
-   
     var regForm = /\d\d\d\d-\d\d-\d\d/;
     if (x.search(regForm) == -1) {
       var errorMsg = document.getElementById("error_message");
@@ -194,3 +231,5 @@ function validateForm() {
       return false;
     }
 }
+
+
